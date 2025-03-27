@@ -1,0 +1,89 @@
+Tables:
+
+    Drivers:
+
+        Fields:
+        
+            driver_id (Primary Key)
+            name
+            average_rating
+            special_instructions
+            car_make_model
+            license_number
+            years_as_driver
+            joining_date
+            coordinates
+            is_available
+
+    Riders:
+
+        Fields:
+
+            rider_id (Primary Key)
+            name
+            average_rating
+            special_instructions
+            credit_card_number
+            joining_date
+            coordinates
+            zipcode
+            is_available
+    
+    Rides:
+
+        Fields:
+
+            ride_id (Primary Key)
+            driver_id (Foreign Key referencing Drivers(driver_id))
+            rider_id (Foreign Key referencing Riders(rider_id))
+            start_point
+            destination
+            special_instructions
+            time_info
+            driver_review_text
+            rider_review_text
+
+    RideReviews:
+
+        Fields:
+
+            review_id (Primary Key)
+            ride_id (Foreign Key referencing Rides(ride_id))
+            reviewer_id (Foreign Key referencing Riders(rider_id))
+            review_text
+            driver_response
+            rider_response
+
+    RidePassengers:
+
+        Fields:
+
+        ride_id (Foreign Key referencing Rides(ride_id))
+        passenger_id (Foreign Key referencing Riders(rider_id))
+        (Composite Primary Key consisting of ride_id and passenger_id)
+    
+Relationships:
+
+    Drivers(driver_id) <-> Rides(driver_id)
+
+    One driver can have multiple rides.
+
+    Riders(rider_id) <-> Rides(rider_id)
+
+    One rider can have multiple rides.
+
+    Rides(ride_id) <-> RideReviews(ride_id)
+
+    One ride can have multiple reviews.
+
+    Riders(rider_id) <-> RideReviews(reviewer_id)
+
+    One rider can write multiple reviews.
+
+    Rides(ride_id) <-> RidePassengers(ride_id)
+
+    One ride can have multiple passengers.
+
+    Riders(rider_id) <-> RidePassengers(passenger_id)
+
+    One rider can be a passenger on multiple rides.

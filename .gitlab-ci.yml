@@ -1,0 +1,22 @@
+image:
+  name: kalrabb/swen344-pg-py-base:latest
+
+services:
+  - postgres:14
+
+variables:
+  POSTGRES_DB: swen344
+  POSTGRES_USER: swen344
+  POSTGRES_PASSWORD: whowatchesthewatchmen
+  PYTHON_RUN: python3
+
+before_script:
+  - pip install -r requirements.txt
+  - cp config/gitlab-credentials.yml config/db.yml
+
+testrunner:
+  script:
+    - echo "hello class"
+    - $PYTHON_RUN --version
+    - $PYTHON_RUN -m unittest -v
+  stage: test
